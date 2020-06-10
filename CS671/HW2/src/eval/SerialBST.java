@@ -70,6 +70,7 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
     }
 
     public void balance(){
+
         return;
     }
 
@@ -191,15 +192,74 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
     }
 
     public Object remove(Comparable key){
-        SerialBST.Node cur = (SerialBST.Node)find(key);
-        SerialBST.Node p = null;
-
-        //is leaf node
-        //has two children
-        //has one child
-        return null;
+        System.out.println("Removing " + key);
+        SerialBST.Node cur = this.root;
+        SerialBST.Node target = null, p = null;
+        SerialBST.Node holder = null;
+        if(cur == null){
+            System.out.println("here 1");
+            return null;
+        }
+        while(true){
+            if(key.compareTo(cur.key) == 0)
+                target = cur;
+            if(key.compareTo(cur.key) < 0){
+                if(cur.left == null){
+                    break;
+                }
+                p = cur;
+                cur = cur.left;
+            }
+            else{
+                if(cur.right == null){
+                    break;
+                }
+                p = cur;
+                cur = cur.right;
+            }
+        }
+        holder = new SerialBST.Node(cur.key, cur.val);
+        if(target == null) {
+            System.out.println("here 2");
+            return null;
+        }
+        else{
+            if(p == null){
+                this.root = null;
+            }
+            else{
+                target.key = cur.key;
+                target.val = cur.val;
+                if(p.left == cur)
+                    p.left = cur.right;
+                else{
+                    p.right = cur.left;
+                    System.out.println("here 3");
+                    return holder.key;
+                }
+            }
+        }
+        System.out.println("here 4");
+        return cur.key;
     }
 
+    private void printTreeUtil(SerialBST.Node root, int space){
+        if(root == null) return;
+
+        space += 10;
+        printTreeUtil(root.right, space);
+
+        System.out.print("\n");
+        for(int i = 10; i < space; i++){
+            System.out.print(" ");
+        }
+        System.out.print(root.key + "\n");
+        printTreeUtil(root.left, space);
+    }
+
+    public void printTree(SerialBST.Node root){
+        printTreeUtil(this.root, 0);
+    }
     public int size(){
         return this.size;
     }

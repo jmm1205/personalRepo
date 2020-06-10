@@ -263,7 +263,15 @@ public class SampleDataStructTests {
         }
         catch(NoSuchElementException ex){
         }
-//        assertEquals(sb.remove(67), 67);
+
+//        sb.printTree(sb.root);
+//        sb.remove(67);
+//        System.out.println("\n\n\n");
+//        sb.printTree(sb.root);
+//        sb.remove(3);
+//        System.out.println("\n\n\n");
+//        sb.printTree(sb.root);
+        assertEquals(sb.remove(67), 67);
 //        try{
 //            sb.find(67);
 //            System.out.println("found: "+sb.find(67));
