@@ -192,12 +192,10 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
     }
 
     public Object remove(Comparable key){
-        System.out.println("Removing " + key);
         SerialBST.Node cur = this.root;
         SerialBST.Node target = null, p = null;
-        SerialBST.Node holder = null;
+        SerialBST.Node holder;
         if(cur == null){
-            System.out.println("here 1");
             return null;
         }
         while(true){
@@ -218,12 +216,11 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
                 cur = cur.right;
             }
         }
-        holder = new SerialBST.Node(cur.key, cur.val);
         if(target == null) {
-            System.out.println("here 2");
             return null;
         }
         else{
+            holder = copyNode(target);
             if(p == null){
                 this.root = null;
             }
@@ -234,13 +231,19 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
                     p.left = cur.right;
                 else{
                     p.right = cur.left;
-                    System.out.println("here 3");
-                    return holder.key;
                 }
             }
         }
-        System.out.println("here 4");
-        return cur.key;
+        return holder.key;
+    }
+
+    private SerialBST.Node copyNode(SerialBST.Node n){
+        SerialBST.Node newNode = new SerialBST.Node(null, null);
+        newNode.key = n.key;
+        newNode.val = n.val;
+        newNode.parent = n.parent;
+
+        return newNode;
     }
 
     private void printTreeUtil(SerialBST.Node root, int space){

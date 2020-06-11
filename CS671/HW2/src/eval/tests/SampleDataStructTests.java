@@ -264,21 +264,15 @@ public class SampleDataStructTests {
         catch(NoSuchElementException ex){
         }
 
-//        sb.printTree(sb.root);
-//        sb.remove(67);
-//        System.out.println("\n\n\n");
-//        sb.printTree(sb.root);
-//        sb.remove(3);
-//        System.out.println("\n\n\n");
-//        sb.printTree(sb.root);
+
         assertEquals(sb.remove(67), 67);
-//        try{
-//            sb.find(67);
-//            System.out.println("found: "+sb.find(67));
-//            throw new AssertionError("Expected NoSuchElementException.");
-//        }
-//        catch(NoSuchElementException ex){
-//        }
+        try{
+            sb.find(67);
+            System.out.println("found: "+sb.find(67));
+            throw new AssertionError("Expected NoSuchElementException.");
+        }
+        catch(NoSuchElementException ex){
+        }
     }
 //
 //    @Test(timeout=2000) //SerialBST balance
