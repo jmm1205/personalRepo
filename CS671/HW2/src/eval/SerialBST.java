@@ -19,11 +19,6 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
             this.right = null;
             this.parent = null;
         }
-
-        private void remove(){
-            return;
-        }
-
     }
 
     public SerialBST.Node root;
@@ -70,7 +65,7 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
     }
 
     public void balance(){
-
+        if(this.root == null) return; //empty tree is balanced tree
         return;
     }
 
@@ -170,6 +165,10 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
         return list;
     }
 
+    /**
+     * Travers the bst in a preOrder fashion, adds each nodes value to a list as it goes
+     * @return
+     */
     public Object[] preOrder(){
         Object[] list = new Object[this.size];
         int index = 0;
@@ -191,12 +190,17 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
         return list;
     }
 
+    /**
+     * Removes first occurence of a node found with argument 'key'
+     * @param key
+     * @return
+     */
     public Object remove(Comparable key){
         SerialBST.Node cur = this.root;
         SerialBST.Node target = null, p = null;
         SerialBST.Node holder;
         if(cur == null){
-            return null;
+            throw new NoSuchElementException();
         }
         while(true){
             if(key.compareTo(cur.key) == 0)
@@ -217,7 +221,7 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
             }
         }
         if(target == null) {
-            return null;
+            throw new NoSuchElementException();
         }
         else{
             holder = copyNode(target);
@@ -237,6 +241,11 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
         return holder.key;
     }
 
+    /**
+     * Utility method for copying a node
+     * @param n argument node to be copied to assigned variable
+     * @return a reference to new node with same values/pointers as 'n'
+     */
     private SerialBST.Node copyNode(SerialBST.Node n){
         SerialBST.Node newNode = new SerialBST.Node(null, null);
         newNode.key = n.key;
@@ -246,6 +255,12 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
         return newNode;
     }
 
+    /**
+     * Method used for debugging, prints the tree horizontally
+     * Is not intended for use with large trees as it is a recursive method
+     * @param root
+     * @param space
+     */
     private void printTreeUtil(SerialBST.Node root, int space){
         if(root == null) return;
 
@@ -260,9 +275,15 @@ public class SerialBST extends java.lang.Object implements java.io.Serializable 
         printTreeUtil(root.left, space);
     }
 
+    /**
+     * Method used for debugging, calls a recursive method that prints the tree horizontally
+     * Is not intended for use with large trees as it is a recursive method
+     * @param root
+     */
     public void printTree(SerialBST.Node root){
         printTreeUtil(this.root, 0);
     }
+
     public int size(){
         return this.size;
     }

@@ -48,28 +48,28 @@ public class SampleDataStructTests {
         }
         catch(Exception ex){ }
     }
-//
-//    @Test(timeout=1000) //SerialList add/get
-//    public void sample1 () {
-//        sl = new SerialList();
-//        for(int i=0; i<5; i++){
-//            sl.add(5-i, "test"+i);
-//        }
-//        for(int i=0; i<5; i++){
-//            assertEquals(sl.get(i), "test"+(4-i)); //test by index
-//            assertEquals(sl.get(new Integer(5-i)), "test"+i); //test by key
-//        }
-//        try{
-//            sl.get(7); //getting item out of range fails
-//            throw new AssertionError("Expected IndexOutOfBoundsException.");
-//        }
-//        catch(IndexOutOfBoundsException ex){}
-//        try{
-//            sl.get(new Integer(6)); //getting non-existent item fails
-//            throw new AssertionError("Expected NoSuchElementException.");
-//        }
-//        catch(NoSuchElementException ex){ return; }
-//    }
+
+    @Test(timeout=1000) //SerialList add/get
+    public void sample1 () {
+        sl = new SerialList();
+        for(int i=0; i<5; i++){
+            sl.add(5-i, "test"+i);
+        }
+        for(int i=0; i<5; i++){
+            assertEquals(sl.get(i), "test"+(4-i)); //test by index
+            assertEquals(sl.get(new Integer(5-i)), "test"+i); //test by key
+        }
+        try{
+            sl.get(7); //getting item out of range fails
+            throw new AssertionError("Expected IndexOutOfBoundsException.");
+        }
+        catch(IndexOutOfBoundsException ex){}
+        try{
+            sl.get(new Integer(6)); //getting non-existent item fails
+            throw new AssertionError("Expected NoSuchElementException.");
+        }
+        catch(NoSuchElementException ex){ return; }
+    }
 
 //    @Test(timeout=1000) //SerialList remove
 //    public void sample2 () {
@@ -93,13 +93,13 @@ public class SampleDataStructTests {
 //        catch(NoSuchElementException ex){ }
 //    }
 //
-//    @Test(timeout=1000) //SerialList isEmpty and size
-//    public void sample3 () {
-//        sl = new SerialList();
-//        assertTrue(sl.isEmpty());
-//        sl.add(0, "test");
-//        assertFalse(sl.isEmpty());
-//    }
+    @Test(timeout=1000) //SerialList isEmpty and size
+    public void sample3 () {
+        sl = new SerialList();
+        assertTrue(sl.isEmpty());
+        sl.add(0, "test");
+        assertFalse(sl.isEmpty());
+    }
 
 //    @SuppressWarnings("unchecked")
 //    @Test(timeout=2000) //SerialList sort
@@ -269,6 +269,12 @@ public class SampleDataStructTests {
         try{
             sb.find(67);
             System.out.println("found: "+sb.find(67));
+            throw new AssertionError("Expected NoSuchElementException.");
+        }
+        catch(NoSuchElementException ex){
+        }
+        try{
+            System.out.println("Removed: " + sb.remove(67));
             throw new AssertionError("Expected NoSuchElementException.");
         }
         catch(NoSuchElementException ex){

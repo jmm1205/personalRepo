@@ -1,80 +1,129 @@
 package eval;
 
+import java.util.NoSuchElementException;
+
 public class SerialList {
 
 
     public class Node extends java.lang.Object{
-        public SerialList.Node parent;
-        public SerialList.Node left;
-        public SerialList.Node right;
         public Comparable<?> key;
         public Object val;
+        public SerialList.Node next;
 
         public Node(Comparable k, Object v){
             this.key = k;
             this.val = v;
-            this.left = null;
-            this.right = null;
-            this.parent = null;
+            this.next = null;
         }
 
-        public void remove(){
-            return;
-        }
-
+//        @Override
+//        public String toString(){
+//            return this.val + "";
+//        }
     }
-
-    public Node root;
     public int size;
-    public void add(Comparable key, Object val){
-        if(root.right == root) //empty tree
-        {
-            SerialList.Node newNode = new SerialList.Node(key, val);
-            root.right = newNode;
-            newNode.parent = root;
-            newNode.right = root;
+    public SerialList.Node head;
+    public SerialList.Node tail;
+
+    public SerialList(){
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    public SerialList(SerialList.Node h, SerialList.Node t, int s){
+
+    }
+
+    public void add(Comparable key,Object val){
+        SerialList.Node newNode = new SerialList.Node(key, val);
+        newNode.next = this.head;
+        this.head = newNode;
+        if(this.tail == null)
+            this.tail = newNode;
+        this.size++;
+        return;
+    }
+
+    public Object get(Comparable key){
+        SerialList.Node cur = this.head;
+        if(cur == null) throw new NoSuchElementException();
+        while(cur != null){
+            if(key.compareTo(cur.key) == 0)
+                return cur.val;
+            cur = cur.next;
         }
-
-        return;
+        throw new NoSuchElementException();
     }
 
-    public void balance(){
-        return;
+    public Object get(int index){
+        if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+        SerialList.Node cur = this.head;
+        for(int i = 0; i < index; i++)
+            cur = cur.next;
+        return cur.val;
     }
 
-    public Object find(Comparable key){
-        return null;
-    }
-
-    public Object[] inOrder(){
-        return null;
-    }
-
-    public boolean isEmpty(){
-        return this.size == 0;
-    }
-
-    public Object[] postOrder(){
-        return null;
-    }
-
-    public Object[] preOrder(){
-        return null;
-    }
+    public boolean isEmpty(){ return this.size == 0;}
 
     public Object remove(Comparable key){
-        return null;
+        SerialList.Node cur = this.head;
+        SerialList.Node p = cur;
+        if(cur == null) throw new NoSuchElementException();
+        while(cur != null){
+            if(key.compareTo(cur.key) == 0)
+                break;
+            p = cur;
+            cur = cur.next;
+        }
+        if(key.compareTo(cur.key) == 0){
+            if(cur == this.head)
+                this.head = cur.next;
+            if(cur == this.tail)
+                this.tail = p;
+            if(p != null){
+                p.next = cur.next;
+                cur.next = null;
+            }
+            this.size--;
+            return cur.val;
+        }
+        throw new NoSuchElementException();
     }
 
-    public int size(){
-        return this.size;
+    public Object remove(int index){
+        if(index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+        if(this.head == null) return null;
+
+        SerialList.Node cur, p;
+        p = cur = this.head;
+        if(index == 0){
+            this.head = cur.next;
+            this.size--;
+            return cur.val;
+        }
+        for(int i = 0; i < index; i++){
+            p = cur;
+            cur = cur.next;
+        }
+        p.next = cur.next;
+        if(cur == this.tail)
+            this.tail = p;
+        this.size--;
+        return cur.val;
     }
 
-    public Object get(int i){
-        return null;
+    public int size(){ return this.size; }
+
+    public void sort(){
+
+        return;
     }
 
     public String toString(){
-        return null;
+
+        return " ";
     }
+
+
 }
