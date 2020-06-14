@@ -71,27 +71,27 @@ public class SampleDataStructTests {
         catch(NoSuchElementException ex){ return; }
     }
 
-//    @Test(timeout=1000) //SerialList remove
-//    public void sample2 () {
-//        sl = new SerialList();
-//        for(int i=0; i<5; i++){
-//            sl.add(5-i, "test"+i);
-//        }
-//        sl.remove(2); //remove by index
-//        assertEquals(sl.get(2), "test"+1);
-//        try{
-//            sl.remove(4);
-//            throw new AssertionError("Expected IndexOutOfBoundsException.");
-//        } //removing item out of range fails
-//        catch(IndexOutOfBoundsException ex){ }
-//        sl.remove(new Integer(1)); //remove by key
-//        assertEquals(sl.get(0), "test"+3);
-//        try{
-//            sl.remove(new Integer(1));  //removing removed item fails
-//            throw new AssertionError("Expected NoSuchElementException.");
-//        }
-//        catch(NoSuchElementException ex){ }
-//    }
+    @Test(timeout=1000) //SerialList remove
+    public void sample2 () {
+        sl = new SerialList();
+        for(int i=0; i<5; i++){
+            sl.add(5-i, "test"+i);
+        }
+        sl.remove(2); //remove by index
+        assertEquals(sl.get(2), "test"+1);
+        try{
+            sl.remove(4);
+            throw new AssertionError("Expected IndexOutOfBoundsException.");
+        } //removing item out of range fails
+        catch(IndexOutOfBoundsException ex){ }
+        sl.remove(new Integer(1)); //remove by key
+        assertEquals(sl.get(0), "test"+3);
+        try{
+            sl.remove(new Integer(1));  //removing removed item fails
+            throw new AssertionError("Expected NoSuchElementException.");
+        }
+        catch(NoSuchElementException ex){ }
+    }
 //
     @Test(timeout=1000) //SerialList isEmpty and size
     public void sample3 () {
@@ -121,44 +121,43 @@ public class SampleDataStructTests {
 //        }
 //    }
 //
-//    @Test(timeout=3000) //SerialList efficient serialization
-//    public void sample5 () {
-//        SerialList sl1 = new SerialList();
-//        SerialList sl2 = new SerialList();
-//        for(int i=0; i<1000; i++){
-//            for(Long x: new Long[] {1L,2L,3L,0L,4L,5L}){
-//                sl1.add(x, x);
-//                sl2.add(r.nextLong(), x);
-//            }
-//        }
-//
-//        int copyLength=0;
-//        int uniqueLength=0;
-//        try{
-//            out.writeObject(sl1);
-//            copyLength = bos.size();
-//            out.writeObject(sl2);
-//            uniqueLength = bos.size()-copyLength;
-//        }
-//        catch(Exception ex){
-//            System.err.println(ex.toString());
-//            assertTrue(false);
-//        }
-//
-//        assertTrue(copyLength < uniqueLength);
-//
-//        try{
-//            bis = new ByteArrayInputStream(bos.toByteArray());
-//            in = new ObjectInputStream(bis);
-//            SerialList inList = (SerialList)(in.readObject());
-//            assertEquals(inList.size(), 6000);
-//            assertEquals(inList.get(0), 5L);
-//        }
-//        catch(Exception ex){
-//            System.err.println(ex.toString());
-//            assertTrue(false);
-//        }
-//    }
+    @Test(timeout=3000) //SerialList efficient serialization
+    public void sample5 () {
+        SerialList sl1 = new SerialList();
+        SerialList sl2 = new SerialList();
+        for(int i=0; i<1000; i++){
+            for(Long x: new Long[] {1L,2L,3L,0L,4L,5L}){
+                sl1.add(x, x);
+                sl2.add(r.nextLong(), x);
+            }
+        }
+
+        int copyLength=0;
+        int uniqueLength=0;
+        try{
+            out.writeObject(sl1);
+            copyLength = bos.size();
+            out.writeObject(sl2);
+            uniqueLength = bos.size()-copyLength;
+        }
+        catch(Exception ex){
+            System.err.println(ex.toString());
+            assertTrue(false);
+        }
+
+        assertTrue(copyLength < uniqueLength);
+        try{
+            bis = new ByteArrayInputStream(bos.toByteArray());
+            in = new ObjectInputStream(bis);
+            SerialList inList = (SerialList)(in.readObject());
+            assertEquals(inList.size(), 6000);
+            assertEquals(inList.get(0), 5L);
+        }
+        catch(Exception ex){
+            System.err.println(ex.toString());
+            assertTrue(false);
+        }
+    }
 //
     private int nChildren(SerialBST.Node n){
         if(n==null)

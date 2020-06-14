@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class SerialBST extends java.lang.Object implements java.io.Serializable {
 
-    public static class Node extends java.lang.Object{
+    public static class Node extends java.lang.Object implements java.io.Serializable{
         public Node parent;
         public Node left;
         public Node right;
